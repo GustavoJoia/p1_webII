@@ -28,13 +28,11 @@ class LogRepository {
         $select = 'SELECT * FROM logs';
         $prepare = $pdo->prepare($select);
         try {
-            echo 'aqui';
             $prepare->execute();
             $lista = $prepare->fetchAll(PDO::FETCH_ASSOC);
             return $lista;
         } catch (PDOException $e) {
             return false;
-            echo 'aqui';
         }
     }
 

@@ -33,5 +33,3 @@ class LogController{
     }
 
 }
-
-LogController::getLogs();
