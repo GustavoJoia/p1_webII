@@ -9,6 +9,7 @@ class Produto {
     private float $preco;
     private int $estoque;
     private int $userInsert;
+    private string $dataHora;
 
 
     /**
@@ -129,5 +130,25 @@ class Produto {
      */
     public function setUserInsert(int $userInsert) {
         $this->userInsert = $userInsert;
+    }
+
+    /**
+     * Get the value of dataHora
+     *
+     * @return string
+     */
+    public function getDataHora(): string {
+        return $this->dataHora;
+    }
+
+    /**
+     * Set the value of dataHora
+     *
+     * @param string $dataHora
+     *
+     * @return self
+     */
+    public function setDataHora(string $dataHora) {
+        $this->dataHora = $dataHora;
     }
 }

@@ -6,9 +6,9 @@ use PDOException;
 
 class Database {
 
-    public static function connect() : PDO {
+    public static function connect() {
 
-        $path = 'Src/Database/produtos_p1.sqlite';
+        $path = 'produtos_p1.sqlite';
 
         try {
             $pdo = new PDO("sqlite:$path");
