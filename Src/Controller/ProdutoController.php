@@ -47,6 +47,64 @@ class ProdutoController {
 
     public static function post(Produto $p){
         
+        if(strlen($p->getNome())<3){
+            return ['status'=>false,'mensagem'=>'Nome do produto muito curto'];
+        }
+        if($p->getPreco()<0){
+            return ['status'=>false,'mensagem'=>'Preço do produto negativo'];
+        }
+        if($p->getEstoque()<0){
+            return ['status'=>false,'mensagem'=>'Número em estoque nulo ou negativo'];
+        }
+
+        $response = ProdutoRepository::post($p);
+        if(is_int($response)){
+            $p->setId($response);
+            $log = new Log();
+            $log->setAcao('Criação');
+            $log->setUserInsert($p->getUserInsert());
+            $log->setProduto($p);
+            LogRepository::register($log);
+        }
+
+    }
+
+    public static function put(Produto $p){
+        
+        if(strlen($p->getNome())<3){
+            return ['status'=>false,'mensagem'=>'Nome do produto muito curto'];
+        }
+        if($p->getPreco()<0){
+            return ['status'=>false,'mensagem'=>'Preço do produto negativo'];
+        }
+        if($p->getEstoque()<0){
+            return ['status'=>false,'mensagem'=>'Número em estoque nulo ou negativo'];
+        }
+
+        $response = ProdutoRepository::put($p);
+        if(is_int($response)){
+            $p->setId($response);
+            $log = new Log();
+            $log->setAcao('Atualização');
+            $log->setUserInsert($p->getUserInsert());
+            $log->setProduto($p);
+            LogRepository::register($log);
+        }
+
+    }
+
+    public static function delete(Produto $p){
+
+        $response = ProdutoRepository::delete($p);
+        if(is_int($response)){
+            $p->setId($response);
+            $log = new Log();
+            $log->setAcao('Exclusão');
+            $log->setUserInsert($p->getUserInsert());
+            $log->setProduto($p);
+            LogRepository::register($log);
+        }
+
     }
 
 }
