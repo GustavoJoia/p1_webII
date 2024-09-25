@@ -31,6 +31,7 @@ class ProdutoController {
             return ['status'=>false,'mensagem'=>'Não há nenhum produto registrado'];
         }
         $array_produtos = [];
+        var_dump($produtos);
         foreach ($produtos as $key => $produto) {
             $prod = new Produto();
             $prod->setId($produto['idProduto']);

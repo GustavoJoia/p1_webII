@@ -14,7 +14,7 @@ class ProdutoRepository {
         try {
             $prepare->execute();
             $lista = $prepare->fetchAll(PDO::FETCH_ASSOC);
-            return true;
+            return $lista;
         } catch (PDOException $e) {
             return false;
         }

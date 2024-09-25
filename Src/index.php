@@ -9,10 +9,16 @@ $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 $uri_splited = explode('/',$uri);
 
-$request_data = [
-    'service'=> $uri_splited[1],
-    'id'=> $uri_splited[2]
-];
+if(count($uri_splited)==3){
+    $request_data = [
+        "service"=>$uri_splited[1],
+        "id"=>$uri_splited[2]
+    ];
+} else {
+    $request_data = [
+        "service"=>$uri_splited[1]
+    ];
+}
 
 switch ($method) {
     case 'GET':
@@ -38,7 +44,26 @@ switch ($method) {
         
         break;
     
-    default:
-        # code...
+    case 'POST':
+
+        switch ($request_data['service']) {
+            case 'produtos':
+                if(is_int($request_data['id'])){
+                    $produto = new Produto();
+                    $produto->setId($request_data['id']);
+                    $response = ProdutoController::get($p);
+                    echo json_encode($response);
+                    break;
+                }
+                $response = ProdutoController::get(null);
+                echo json_encode($response);
+                break;
+            
+            case 'logs':
+                $logs = LogController::getLogs();
+                echo json_encode($logs);
+                break;
+        }
+
         break;
 }
