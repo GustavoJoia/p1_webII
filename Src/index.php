@@ -1,6 +1,8 @@
 <?php
 namespace App\Server;
 use App\Server\Controller\LogController;
+use App\Server\Controller\ProdutoController;
+use App\Server\Model\Produto;
 include_once(__DIR__.'/../vendor/autoload.php');
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -17,7 +19,15 @@ switch ($method) {
 
         switch ($request_data['service']) {
             case 'produtos':
-                # code...
+                if(is_int($request_data['id'])){
+                    $produto = new Produto();
+                    $produto->setId($request_data['id']);
+                    $response = ProdutoController::get($p);
+                    echo json_encode($response);
+                    break;
+                }
+                $response = ProdutoController::get(null);
+                echo json_encode($response);
                 break;
             
             case 'logs':
