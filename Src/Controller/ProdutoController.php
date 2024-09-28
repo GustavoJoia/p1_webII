@@ -13,37 +13,14 @@ class ProdutoController {
             if($produto==false){
                 return ['status'=>false,'mensagem'=>'Não há nenhum produto registrado nesse ID'];
             }
-            $prod = new Produto();
-            foreach ($produto as $key => $produto) {
-                $prod->setId($produto['idProduto']);
-                $prod->setNome($produto['nomeProduto']);
-                $prod->setDesc($produto['descProduto']);
-                $prod->setPreco($produto['precoProduto']);
-                $prod->setEstoque($produto['estoqueProduto']);
-                $prod->setUserInsert($produto['userInsert']);
-                $prod->setDataHora($produto['data_hora']);
-            }
-            return $prod;
+            return $produto;
         }
 
         $produtos = ProdutoRepository::getAll();
         if($produtos==false){
             return ['status'=>false,'mensagem'=>'Não há nenhum produto registrado'];
         }
-        $array_produtos = [];
-        var_dump($produtos);
-        foreach ($produtos as $key => $produto) {
-            $prod = new Produto();
-            $prod->setId($produto['idProduto']);
-            $prod->setNome($produto['nomeProduto']);
-            $prod->setDesc($produto['descProduto']);
-            $prod->setPreco($produto['precoProduto']);
-            $prod->setEstoque($produto['estoqueProduto']);
-            $prod->setUserInsert($produto['userInsert']);
-            $prod->setDataHora($produto['data_hora']);
-            array_push($array_produtos, $prod);
-        }
-        return $array_produtos;
+        return $produtos;
     }
 
     public static function post(Produto $p){
@@ -68,6 +45,8 @@ class ProdutoController {
             LogRepository::register($log);
         }
 
+        return ['status'=>true,'mensagem'=>'Produto cadastrado com sucesso'];
+
     }
 
     public static function put(Produto $p){
@@ -83,6 +62,9 @@ class ProdutoController {
         }
 
         $response = ProdutoRepository::put($p);
+        if($response==false){
+            return ['status'=>false,'mensagem'=>'Falha na atualização'];
+        }
         if(is_int($response)){
             $p->setId($response);
             $log = new Log();
@@ -92,19 +74,23 @@ class ProdutoController {
             LogRepository::register($log);
         }
 
+        return ['status'=>true,'mensagem'=>'Produto atualizado com sucesso'];
+
     }
 
     public static function delete(Produto $p){
 
         $response = ProdutoRepository::delete($p);
-        if(is_int($response)){
-            $p->setId($response);
-            $log = new Log();
-            $log->setAcao('Exclusão');
-            $log->setUserInsert($p->getUserInsert());
-            $log->setProduto($p);
-            LogRepository::register($log);
+        if($response==false){
+            return ['status'=>false,'mensagem'=>'Falha na exclusão desse produto'];
         }
+        $log = new Log();
+        $log->setAcao('Exclusão');
+        $log->setUserInsert($p->getUserInsert());
+        $log->setProduto($p);
+        LogRepository::register($log);
+
+        return ['status'=>true,'mensagem'=>'Exclusão realizada com sucesso'];
 
     }
 

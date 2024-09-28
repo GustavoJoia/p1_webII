@@ -28,7 +28,7 @@ class ProdutoRepository {
         try {
             $prepare->execute();
             $lista = $prepare->fetch(PDO::FETCH_ASSOC);
-            return true;
+            return $lista;
         } catch (PDOException $e) {
             return false;
         }
@@ -69,14 +69,14 @@ class ProdutoRepository {
         }
     }
 
-    public static function delete(Produto $p) : bool|int {
+    public static function delete(Produto $p) : bool {
         $pdo = Database::connect();
         $update = 'DELETE FROM produtos WHERE idProduto = ?';
         $prepare = $pdo->prepare($update);
         $prepare->bindValue(1, $p->getId());
         try {
             $prepare->execute();
-            return $p->getId();
+            return true;
         } catch (PDOException $e) {
             return false;
         }

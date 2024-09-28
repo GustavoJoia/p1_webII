@@ -25,10 +25,10 @@ switch ($method) {
 
         switch ($request_data['service']) {
             case 'produtos':
-                if(is_int($request_data['id'])){
+                if(isset($request_data['id']) && $request_data['id']!=''){
                     $produto = new Produto();
                     $produto->setId($request_data['id']);
-                    $response = ProdutoController::get($p);
+                    $response = ProdutoController::get($produto);
                     echo json_encode($response);
                     break;
                 }
@@ -46,24 +46,41 @@ switch ($method) {
     
     case 'POST':
 
-        switch ($request_data['service']) {
-            case 'produtos':
-                if(is_int($request_data['id'])){
-                    $produto = new Produto();
-                    $produto->setId($request_data['id']);
-                    $response = ProdutoController::get($p);
-                    echo json_encode($response);
-                    break;
-                }
-                $response = ProdutoController::get(null);
-                echo json_encode($response);
-                break;
-            
-            case 'logs':
-                $logs = LogController::getLogs();
-                echo json_encode($logs);
-                break;
-        }
+        $data = json_decode(file_get_contents('php://input'));
+        $produto = new Produto();
+        $produto->setNome($data->nomeProduto);
+        $produto->setDesc($data->descProduto);
+        $produto->setEstoque($data->estoqueProduto);
+        $produto->setPreco($data->precoProduto);
+        $produto->setUserInsert(1);
+        $response = ProdutoController::post($produto);
+        echo json_encode($response);
+
+        break;
+
+    case 'PUT':
+
+        $data = json_decode(file_get_contents('php://input'));
+        $produto = new Produto();
+        $produto->setId($request_data['id']);
+        $produto->setNome($data->nomeProduto);
+        $produto->setDesc($data->descProduto);
+        $produto->setEstoque($data->estoqueProduto);
+        $produto->setPreco($data->precoProduto);
+        $produto->setUserInsert(1);
+        $response = ProdutoController::put($produto);
+        echo json_encode($response);
+
+        break;
+
+    case 'DELETE':
+
+        $data = json_decode(file_get_contents('php://input'));
+        $produto = new Produto();
+        $produto->setId($request_data['id']);
+        $produto->setUserInsert(1);
+        $response = ProdutoController::delete($produto);
+        echo json_encode($response);
 
         break;
 }
