@@ -5,6 +5,10 @@ use App\Server\Controller\ProdutoController;
 use App\Server\Model\Produto;
 include_once(__DIR__.'/../vendor/autoload.php');
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Methods: *");
+
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 $uri_splited = explode('/',$uri);
@@ -25,7 +29,7 @@ switch ($method) {
 
         switch ($request_data['service']) {
             case 'produtos':
-                if(isset($request_data['id']) && $request_data['id']!=''){
+                if(isset($request_data['id'])){
                     $produto = new Produto();
                     $produto->setId($request_data['id']);
                     $response = ProdutoController::get($produto);

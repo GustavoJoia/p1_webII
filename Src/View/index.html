@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gerenciamento de Produtos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Sistema de Gerenciamento de Produtos</h1>
+    <p>Cadastre, atualize, liste ou exclua produtos.</p>
+    <form>
+        <select id="acao" name="acao">
+            <option value="">Selecione...</option>
+            <option value="POST">Cadastrar</option>
+            <option value="PUT">Atualizar</option>
+            <option value="GET">Listar</option>
+            <option value="DELETE">Excluir</option>
+        </select>
+        <br>
+        <label for="id">Id</label>
+        <input type="text" id="id" name="id">
+        
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome">
+        
+        <label for="descricao">Descrição</label>
+        <input type="text" id="descricao" name="descricao">
+        
+        <label for="preco">Preço</label>
+        <input type="text" id="preco" name="preco">
+        
+        <label for="estoque">Estoque</label>
+        <input type="text" id="estoque" name="estoque">
+        
+        <button type="submit">Enviar</button>
+    </form>
+    <table id="tabelaProdutos">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+                <th>Usuário</th>
+                <th>Data de execução</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Produto A</td>
+                <td>Descrição do Produto A</td>
+                <td>R$ 10,00</td>
+                <td>100</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Produto B</td>
+                <td>Descrição do Produto B</td>
+                <td>R$ 20,00</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Produto C</td>
+                <td>Descrição do Produto C</td>
+                <td>R$ 15,00</td>
+                <td>75</td>
+            </tr>
+        </tbody>
+    </table>
+    <table id="tabelaLogs">
+        <h1>Logs</h3>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ação</th>
+                <th>Usuário</th>
+                <th>Produto</th>
+                <th>Data de execução</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Exclusão</td>
+                <td>2</td>
+                <td>1</td>
+                <td>2024-09-28 11:14:34</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Exclusão</td>
+                <td>2</td>
+                <td>1</td>
+                <td>2024-09-28 11:14:34</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Exclusão</td>
+                <td>2</td>
+                <td>1</td>
+                <td>2024-09-28 11:14:34</td>
+            </tr>
+        </tbody>
+    </table>
+    <script src="./index.js"></script>
+    <script src="./request.js"></script>
+</body>
+</html>
