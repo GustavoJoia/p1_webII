@@ -36,7 +36,7 @@ class ProdutoRepository {
 
     public static function post(Produto $p) : bool|int {
         $pdo = Database::connect();
-        $insert = 'INSERT INTO produtos(nomeProduto,descProduto,precoProduto,estoqueProduto,userInsert) VALUES (?,?,?,?,?)';
+        $insert = "INSERT INTO produtos(nomeProduto,descProduto,precoProduto,estoqueProduto,userInsert,data_hora) VALUES (?,?,?,?,?,DATETIME('now','-3 hours'))";
         $prepare = $pdo->prepare($insert);
         $prepare->bindValue(1, $p->getNome());
         $prepare->bindValue(2, $p->getDesc());
@@ -53,7 +53,7 @@ class ProdutoRepository {
 
     public static function put(Produto $p) : bool|int {
         $pdo = Database::connect();
-        $update = 'UPDATE produtos SET nomeProduto = ?,descProduto = ?,precoProduto = ?,estoqueProduto = ?,userInsert = ? WHERE idProduto = ?';
+        $update = "UPDATE produtos SET nomeProduto = ?,descProduto = ?,precoProduto = ?,estoqueProduto = ?,userInsert = ?,data_hora = DATETIME('now','-3 hours') WHERE idProduto = ?";
         $prepare = $pdo->prepare($update);
         $prepare->bindValue(1, $p->getNome());
         $prepare->bindValue(2, $p->getDesc());

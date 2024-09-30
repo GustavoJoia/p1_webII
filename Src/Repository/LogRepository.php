@@ -10,7 +10,7 @@ class LogRepository {
 
     public static function register(Log $l) : bool {
         $pdo = Database::connect();
-        $insert = 'INSERT INTO logs(acaoLog,userInsert,idProduto) VALUES(?,?,?)';
+        $insert = "INSERT INTO logs(acaoLog,userInsert,idProduto,data_hora) VALUES(?,?,?,DATETIME('now','-3 hours'))";
         $prepare = $pdo->prepare($insert);
         $prepare->bindValue(1, $l->getAcao());
         $prepare->bindValue(2, $l->getUserInsert());

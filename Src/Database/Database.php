@@ -28,13 +28,13 @@ $create1 = 'CREATE TABLE IF NOT EXISTS produtos (
     precoProduto FLOAT NOT NULL,
     estoqueProduto INTEGER NOT NULL,
     userInsert INTEGER NOT NULL,
-    data_hora DATETIME DEFAULT CURRENT_TIMESTAMP
+    data_hora DATETIME NOT NULL
 );';
 
 $create2 = 'CREATE TABLE IF NOT EXISTS logs (
     idLog INTEGER PRIMARY KEY AUTOINCREMENT,
     acaoLog VARCHAR(20) NOT NULL,
-    data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+    data_hora DATETIME NOT NULL,
     userInsert INTEGER NOT NULL,
     idProduto INTEGER NOT NULL
 );';

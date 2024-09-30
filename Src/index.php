@@ -29,6 +29,7 @@ switch ($method) {
 
         switch ($request_data['service']) {
             case 'produtos':
+                
                 if(isset($request_data['id'])){
                     $produto = new Produto();
                     $produto->setId($request_data['id']);
@@ -36,6 +37,7 @@ switch ($method) {
                     echo json_encode($response);
                     break;
                 }
+                
                 $response = ProdutoController::get(null);
                 echo json_encode($response);
                 break;
